@@ -1,0 +1,20 @@
+[Unit]
+Description=Jenkins Daemon
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/jenkins
+Environment=JENKINS_WAR=@@WAR@@
+ExecStartPre=/usr/lib/systemd/system/jenkins.prestart
+EnvironmentFile=-/var/cache/jenkins/sysconfig
+ExecStart=/bin/bash -c "${JENKINS_JAVA_CMD}"
+ExecStartPost=-/bin/rm -f /var/cache/jenkins/sysconfig
+
+# Not sure how to redirect output to /var/log/jenkins/jenkins.log file.
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=jenkins
+
+User=jenkins
+
+[Install]
+WantedBy=multi-user.target
