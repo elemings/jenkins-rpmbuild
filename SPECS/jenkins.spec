@@ -5,8 +5,8 @@
 %define workdir	%{_var}/lib/jenkins/.jenkins
 
 Name:		jenkins
-Version:	2.164.1.1552705448
-Release:	1%{?dist}
+Version:	2.164.1.1554405920
+Release:	3%{?dist}
 Summary:	Continous Build Server
 # This is where to get the stable jenkins.war file
 # http://mirrors.jenkins-ci.org/war-stable/
@@ -16,6 +16,7 @@ Source2:	jenkins.sysconfig.in
 Source3:	jenkins.logrotate
 Source5:	jenkins.service.in
 Source6:	jenkins.prestart.in
+Source7:	jenkins.jks
 URL:		http://jenkins-ci.org/
 Group:		Development/Tools/Building
 License:	MIT/X License, GPL/CDDL, ASL2
@@ -26,7 +27,6 @@ BuildRequires:	shadow-utils
 BuildRequires:	systemd
 %endif
 Requires:	shadow-utils
-PreReq:		/usr/sbin/groupadd /usr/sbin/useradd
 BuildArch:	noarch
 
 %description
@@ -71,6 +71,7 @@ install -d -m 0755 %{buildroot}%{_unitdir}
 %__ln_s "../../etc/init.d/%{name}" "%{buildroot}/usr/sbin/rc%{name}"
 %endif
 
+%__install -D -m0600 "%{SOURCE7}" "%{buildroot}/etc/pki/java/%{name}"
 %__install -D -m0600 "%{SOURCE2}" "%{buildroot}/etc/sysconfig/%{name}"
 %__sed -i 's,@@HOME@@,%{workdir},g' "%{buildroot}/etc/sysconfig/%{name}"
 
@@ -138,6 +139,7 @@ exit 0
 %attr(0750,%{name},%{name}) /var/cache/%{name}
 %config /etc/logrotate.d/%{name}
 %config(noreplace) /etc/sysconfig/%{name}
+%attr(0640,%{name},%{name}) /etc/pki/java/%{name}
 %if 0%{?rhel} >= 7
 %{_unitdir}/%{name}.prestart
 %{_unitdir}/%{name}.service
@@ -147,9 +149,14 @@ exit 0
 %endif
 
 %changelog
+* Thu Apr 04 2019 Eric Lemings <eric@lemings.com> - 2.164.1.1554405920-3
+- Replace HTTP protocol with HTTPS as default.
+
+* Wed Mar 27 2019 Eric Lemings <eric@lemings.com> - 2.164.1.1553656760-2
+- Translate sysconfig values into systemd Java command.
+
 * Fri Feb 01 2019 Eric Lemings <eric@lemings.com> - 2.164.1.1552705448-1
 - Update to 2.164.1.1552705448
-- Translate sysconfig values into systemd Java command.
 
 * Fri Feb 01 2019 Justin Pierce <jupierce@redhat.com> - 2.150.2.1549032159-1
 - Update to 2.150.2.1549032159
