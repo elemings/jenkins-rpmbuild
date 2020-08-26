@@ -1,93 +1,99 @@
 
-#%define workdir %{_var}/lib/jenkins # it changed from 2.150.3 to 2.164.1
-%define workdir %{_var}/lib/jenkins/.jenkins
+%define workdir %{_var}/lib/jenkins
 
 Name:       jenkins-plugins
-Version:    2.164.1.1554405920
-Release:    3%{?dist}
+Version:    2.235.5
+Release:    1%{?dist}
 Summary:    Jenkins plugin bundle
+
 Group:      Development/Tools/Building
 License:    ASL 2.0
-BuildArch:  noarch
-Requires:   jenkins >= 2.164.1
+URL:        https://plugins.jenkins.io/
 
-URL:        https://updates.jenkins-ci.org/download/plugins
-Source0:    https://updates.jenkins-ci.org/latest/ace-editor.hpi
-Source1:    https://updates.jenkins-ci.org/latest/ant.hpi
-Source2:    https://updates.jenkins-ci.org/latest/antisamy-markup-formatter.hpi
-Source3:    https://updates.jenkins-ci.org/latest//apache-httpcomponents-client-4-api.hpi
-Source4:    https://updates.jenkins-ci.org/latest/authentication-tokens.hpi
-Source5:    https://updates.jenkins-ci.org/latest//bouncycastle-api.hpi
-Source6:    https://updates.jenkins-ci.org/latest/branch-api.hpi
-Source7:    https://updates.jenkins-ci.org/latest/build-timeout.hpi
-Source8:    https://updates.jenkins-ci.org/latest/clearcase.hpi
-Source9:    https://updates.jenkins-ci.org/latest/cloudbees-folder.hpi
-Source10:    https://updates.jenkins-ci.org/latest/command-launcher.hpi
-Source11:    https://updates.jenkins-ci.org/latest/credentials-binding.hpi
-Source12:    https://updates.jenkins-ci.org/latest/credentials.hpi
-Source13:    https://updates.jenkins-ci.org/latest/display-url-api.hpi
-Source14:    https://updates.jenkins-ci.org/latest/docker-commons.hpi
-Source15:    https://updates.jenkins-ci.org/latest/docker-workflow.hpi
-Source16:    https://updates.jenkins-ci.org/latest/durable-task.hpi
-Source17:    https://updates.jenkins-ci.org/latest/email-ext.hpi
-Source18:    https://updates.jenkins-ci.org/latest/external-monitor-job.hpi
-Source19:    https://updates.jenkins-ci.org/latest/git-client.hpi
-Source20:    https://updates.jenkins-ci.org/latest/git.hpi
-Source21:    https://updates.jenkins-ci.org/latest/git-server.hpi
-Source22:    https://updates.jenkins-ci.org/latest/handlebars.hpi
-Source23:    https://updates.jenkins-ci.org/latest/jackson2-api.hpi
-Source24:    https://updates.jenkins-ci.org/latest/javadoc.hpi
-Source25:    https://updates.jenkins-ci.org/latest/jdk-tool.hpi
-Source26:    https://updates.jenkins-ci.org/latest/jira.hpi
-Source27:    https://updates.jenkins-ci.org/latest/jquery.hpi
-Source28:    https://updates.jenkins-ci.org/latest/jquery-detached.hpi
-Source29:    https://updates.jenkins-ci.org/latest/jquery-ui.hpi
-Source30:    https://updates.jenkins-ci.org/latest/jsch.hpi
-Source31:    https://updates.jenkins-ci.org/latest/junit.hpi
-Source32:    https://updates.jenkins-ci.org/latest/ldap.hpi
-Source33:    https://updates.jenkins-ci.org/latest/lockable-resources.hpi
-Source34:    https://updates.jenkins-ci.org/latest/mailer.hpi
-Source35:    https://updates.jenkins-ci.org/latest/matrix-auth.hpi
-Source36:    https://updates.jenkins-ci.org/latest/matrix-project.hpi
-Source37:    https://updates.jenkins-ci.org/latest/momentjs.hpi
-Source38:    https://updates.jenkins-ci.org/latest/pam-auth.hpi
-Source39:    https://updates.jenkins-ci.org/latest/pipeline-build-step.hpi
-Source40:    https://updates.jenkins-ci.org/latest/pipeline-graph-analysis.hpi
-Source41:    https://updates.jenkins-ci.org/latest/pipeline-input-step.hpi
-Source42:    https://updates.jenkins-ci.org/latest/pipeline-milestone-step.hpi
-Source43:    https://updates.jenkins-ci.org/latest/pipeline-model-api.hpi
-Source44:    https://updates.jenkins-ci.org/latest/pipeline-model-declarative-agent.hpi
-Source45:    https://updates.jenkins-ci.org/latest/pipeline-model-definition.hpi
-Source46:    https://updates.jenkins-ci.org/latest/pipeline-model-extensions.hpi
-Source47:    https://updates.jenkins-ci.org/latest/pipeline-rest-api.hpi
-Source48:    https://updates.jenkins-ci.org/latest/pipeline-stage-step.hpi
-Source49:    https://updates.jenkins-ci.org/latest/pipeline-stage-tags-metadata.hpi
-Source50:    https://updates.jenkins-ci.org/latest/pipeline-stage-view.hpi
-Source51:    https://updates.jenkins-ci.org/latest/plain-credentials.hpi
-Source52:    https://updates.jenkins-ci.org/latest/pubsub-light.hpi
-Source53:    https://updates.jenkins-ci.org/latest/resource-disposer.hpi
-Source54:    https://updates.jenkins-ci.org/latest/role-strategy.hpi
-Source55:    https://updates.jenkins-ci.org/latest/scm-api.hpi
-Source56:    https://updates.jenkins-ci.org/latest/script-security.hpi
-Source57:    https://updates.jenkins-ci.org/latest/ssh.hpi
-Source58:    https://updates.jenkins-ci.org/latest/ssh-agent.hpi
-Source59:    https://updates.jenkins-ci.org/latest/ssh-credentials.hpi
-Source60:    https://updates.jenkins-ci.org/latest/ssh-slaves.hpi
-Source61:    https://updates.jenkins-ci.org/latest/structs.hpi
-Source62:    https://updates.jenkins-ci.org/latest/timestamper.hpi
-Source63:    https://updates.jenkins-ci.org/latest/token-macro.hpi
-Source64:    https://updates.jenkins-ci.org/latest/workflow-aggregator.hpi
-Source65:    https://updates.jenkins-ci.org/latest/workflow-api.hpi
-Source66:    https://updates.jenkins-ci.org/latest/workflow-basic-steps.hpi
-Source67:    https://updates.jenkins-ci.org/latest/workflow-cps-global-lib.hpi
-Source68:    https://updates.jenkins-ci.org/latest/workflow-cps.hpi
-Source69:    https://updates.jenkins-ci.org/latest/workflow-durable-task-step.hpi
-Source70:    https://updates.jenkins-ci.org/latest/workflow-job.hpi
-Source71:    https://updates.jenkins-ci.org/latest/workflow-multibranch.hpi
-Source72:    https://updates.jenkins-ci.org/latest/workflow-scm-step.hpi
-Source73:    https://updates.jenkins-ci.org/latest/workflow-step-api.hpi
-Source74:    https://updates.jenkins-ci.org/latest/workflow-support.hpi
-Source75:    https://updates.jenkins-ci.org/latest/ws-cleanup.hpi
+Source1:    https://updates.jenkins-ci.org/download/plugins/ace-editor/1.1/ace-editor.hpi
+Source2:    https://updates.jenkins-ci.org/download/plugins/ant/1.11/ant.hpi
+Source3:    https://updates.jenkins-ci.org/download/plugins/antisamy-markup-formatter/2.1/antisamy-markup-formatter.hpi
+Source4:    https://updates.jenkins-ci.org/download/plugins/apache-httpcomponents-client-4-api/4.5.10-2.0/apache-httpcomponents-client-4-api.hpi
+Source5:    https://updates.jenkins-ci.org/download/plugins/bouncycastle-api/2.18/bouncycastle-api.hpi
+Source6:    https://updates.jenkins-ci.org/download/plugins/branch-api/2.5.9/branch-api.hpi
+Source7:    https://updates.jenkins-ci.org/download/plugins/build-timeout/1.20/build-timeout.hpi
+Source8:    https://updates.jenkins-ci.org/download/plugins/clearcase/1.6.3/clearcase.hpi
+Source9:    https://updates.jenkins-ci.org/download/plugins/cloudbees-folder/6.14/cloudbees-folder.hpi
+Source10:   https://updates.jenkins-ci.org/download/plugins/command-launcher/1.4/command-launcher.hpi
+Source11:   https://updates.jenkins-ci.org/download/plugins/conditional-buildstep/1.3.6/conditional-buildstep.hpi
+Source12:   https://updates.jenkins-ci.org/download/plugins/credentials-binding/1.23/credentials-binding.hpi
+Source13:   https://updates.jenkins-ci.org/download/plugins/credentials/2.3.12/credentials.hpi
+Source14:   https://updates.jenkins-ci.org/download/plugins/display-url-api/2.3.3/display-url-api.hpi
+Source15:   https://updates.jenkins-ci.org/download/plugins/durable-task/1.34/durable-task.hpi
+Source16:   https://updates.jenkins-ci.org/download/plugins/echarts-api/4.8.0-2/echarts-api.hpi
+Source17:   https://updates.jenkins-ci.org/download/plugins/email-ext/2.75/email-ext.hpi
+Source18:   https://updates.jenkins-ci.org/download/plugins/fortify/20.1.33/fortify.hpi
+Source19:   https://updates.jenkins-ci.org/download/plugins/git-client/3.4.2/git-client.hpi
+Source20:   https://updates.jenkins-ci.org/download/plugins/git-server/1.9/git-server.hpi
+Source21:   https://updates.jenkins-ci.org/download/plugins/git/4.4.0/git.hpi
+Source22:   https://updates.jenkins-ci.org/download/plugins/handlebars/1.1.1/handlebars.hpi
+Source23:   https://updates.jenkins-ci.org/download/plugins/jackson2-api/2.11.2/jackson2-api.hpi
+Source24:   https://updates.jenkins-ci.org/download/plugins/jdk-tool/1.4/jdk-tool.hpi
+Source25:   https://updates.jenkins-ci.org/download/plugins/jira/3.1.1/jira.hpi
+Source26:   https://updates.jenkins-ci.org/download/plugins/jobConfigHistory/2.26/jobConfigHistory.hpi
+Source27:   https://updates.jenkins-ci.org/download/plugins/jquery3-api/3.5.1-1/jquery3-api.hpi
+Source28:   https://updates.jenkins-ci.org/download/plugins/jquery-detached/1.2.1/jquery-detached.hpi
+Source29:   https://updates.jenkins-ci.org/download/plugins/jsch/0.1.55.2/jsch.hpi
+Source30:   https://updates.jenkins-ci.org/download/plugins/junit/1.32/junit.hpi
+Source31:   https://updates.jenkins-ci.org/download/plugins/ldap/1.24/ldap.hpi
+Source32:   https://updates.jenkins-ci.org/download/plugins/lockable-resources/2.8/lockable-resources.hpi
+Source33:   https://updates.jenkins-ci.org/download/plugins/log-parser/2.1/log-parser.hpi
+Source34:   https://updates.jenkins-ci.org/download/plugins/mailer/1.32/mailer.hpi
+Source35:   https://updates.jenkins-ci.org/download/plugins/mapdb-api/1.0.9.0/mapdb-api.hpi
+Source36:   https://updates.jenkins-ci.org/download/plugins/matrix-auth/2.6.2/matrix-auth.hpi
+Source37:   https://updates.jenkins-ci.org/download/plugins/matrix-project/1.17/matrix-project.hpi
+Source38:   https://updates.jenkins-ci.org/download/plugins/momentjs/1.1.1/momentjs.hpi
+Source39:   https://updates.jenkins-ci.org/download/plugins/pam-auth/1.6/pam-auth.hpi
+Source40:   https://updates.jenkins-ci.org/download/plugins/parameterized-trigger/2.37/parameterized-trigger.hpi
+Source41:   https://updates.jenkins-ci.org/download/plugins/pipeline-build-step/2.13/pipeline-build-step.hpi
+Source42:   https://updates.jenkins-ci.org/download/plugins/pipeline-graph-analysis/1.10/pipeline-graph-analysis.hpi
+Source43:   https://updates.jenkins-ci.org/download/plugins/pipeline-input-step/2.11/pipeline-input-step.hpi
+Source44:   https://updates.jenkins-ci.org/download/plugins/pipeline-milestone-step/1.3.1/pipeline-milestone-step.hpi
+Source45:   https://updates.jenkins-ci.org/download/plugins/pipeline-model-api/1.7.1/pipeline-model-api.hpi
+Source46:   https://updates.jenkins-ci.org/download/plugins/pipeline-model-declarative-agent/1.1.1/pipeline-model-declarative-agent.hpi
+Source47:   https://updates.jenkins-ci.org/download/plugins/pipeline-model-definition/1.7.1/pipeline-model-definition.hpi
+Source48:   https://updates.jenkins-ci.org/download/plugins/pipeline-model-extensions/1.7.1/pipeline-model-extensions.hpi
+Source49:   https://updates.jenkins-ci.org/download/plugins/pipeline-rest-api/2.14/pipeline-rest-api.hpi
+Source50:   https://updates.jenkins-ci.org/download/plugins/pipeline-stage-step/2.5/pipeline-stage-step.hpi
+Source51:   https://updates.jenkins-ci.org/download/plugins/pipeline-stage-tags-metadata/1.7.1/pipeline-stage-tags-metadata.hpi
+Source52:   https://updates.jenkins-ci.org/download/plugins/pipeline-stage-view/2.14/pipeline-stage-view.hpi
+Source53:   https://updates.jenkins-ci.org/download/plugins/plain-credentials/1.7/plain-credentials.hpi
+Source54:   https://updates.jenkins-ci.org/download/plugins/plugin-util-api/1.2.3/plugin-util-api.hpi
+Source55:   https://updates.jenkins-ci.org/download/plugins/pubsub-light/1.13/pubsub-light.hpi
+Source56:   https://updates.jenkins-ci.org/download/plugins/resource-disposer/0.14/resource-disposer.hpi
+Source57:   https://updates.jenkins-ci.org/download/plugins/run-condition/1.3/run-condition.hpi
+Source58:   https://updates.jenkins-ci.org/download/plugins/scm-api/2.6.3/scm-api.hpi
+Source59:   https://updates.jenkins-ci.org/download/plugins/script-security/1.74/script-security.hpi
+Source60:   https://updates.jenkins-ci.org/download/plugins/snakeyaml-api/1.26.4/snakeyaml-api.hpi
+Source61:   https://updates.jenkins-ci.org/download/plugins/ssh/2.6.1/ssh.hpi
+Source62:   https://updates.jenkins-ci.org/download/plugins/ssh-agent/1.20/ssh-agent.hpi
+Source63:   https://updates.jenkins-ci.org/download/plugins/ssh-credentials/1.18.1/ssh-credentials.hpi
+Source64:   https://updates.jenkins-ci.org/download/plugins/ssh-slaves/1.31.2/ssh-slaves.hpi
+Source65:   https://updates.jenkins-ci.org/download/plugins/structs/1.20/structs.hpi
+Source66:   https://updates.jenkins-ci.org/download/plugins/timestamper/1.11.5/timestamper.hpi
+Source67:   https://updates.jenkins-ci.org/download/plugins/token-macro/2.12/token-macro.hpi
+Source68:   https://updates.jenkins-ci.org/download/plugins/trilead-api/1.0.8/trilead-api.hpi
+Source69:   https://updates.jenkins-ci.org/download/plugins/workflow-aggregator/2.6/workflow-aggregator.hpi
+Source70:   https://updates.jenkins-ci.org/download/plugins/workflow-api/2.40/workflow-api.hpi
+Source71:   https://updates.jenkins-ci.org/download/plugins/workflow-basic-steps/2.20/workflow-basic-steps.hpi
+Source72:   https://updates.jenkins-ci.org/download/plugins/workflow-cps-global-lib/2.17/workflow-cps-global-lib.hpi
+Source73:   https://updates.jenkins-ci.org/download/plugins/workflow-cps/2.82/workflow-cps.hpi
+Source74:   https://updates.jenkins-ci.org/download/plugins/workflow-durable-task-step/2.35/workflow-durable-task-step.hpi
+Source75:   https://updates.jenkins-ci.org/download/plugins/workflow-job/2.39/workflow-job.hpi
+Source76:   https://updates.jenkins-ci.org/download/plugins/workflow-multibranch/2.22/workflow-multibranch.hpi
+Source77:   https://updates.jenkins-ci.org/download/plugins/workflow-scm-step/2.11/workflow-scm-step.hpi
+Source78:   https://updates.jenkins-ci.org/download/plugins/workflow-step-api/2.22/workflow-step-api.hpi
+Source79:   https://updates.jenkins-ci.org/download/plugins/workflow-support/3.5/workflow-support.hpi
+Source80:   https://updates.jenkins-ci.org/download/plugins/ws-cleanup/0.38/ws-cleanup.hpi
+
+BuildArch:  noarch
+Requires:   jenkins >= %{version}
+
 
 %description
 Plugins are the primary means of enhancing the functionality of a
@@ -96,16 +102,15 @@ are over a thousand different plugins which can be installed on a
 Jenkins master and to integrate various build tools, cloud providers,
 analysis tools, and much more.
 
-This Jenkins plugin bundle is specifically tailored for NG MS Boulder.
-
 %prep
 
+
 %build
+
 
 %install
 rm -rf %{buildroot}
 %__install -d -m0755 %{buildroot}%{workdir}/plugins
-%__install -D -m0644 %{SOURCE0} %{buildroot}%{workdir}/plugins/
 %__install -D -m0644 %{SOURCE1} %{buildroot}%{workdir}/plugins/
 %__install -D -m0644 %{SOURCE2} %{buildroot}%{workdir}/plugins/
 %__install -D -m0644 %{SOURCE3} %{buildroot}%{workdir}/plugins/
@@ -181,92 +186,28 @@ rm -rf %{buildroot}
 %__install -D -m0644 %{SOURCE73} %{buildroot}%{workdir}/plugins/
 %__install -D -m0644 %{SOURCE74} %{buildroot}%{workdir}/plugins/
 %__install -D -m0644 %{SOURCE75} %{buildroot}%{workdir}/plugins/
+%__install -D -m0644 %{SOURCE76} %{buildroot}%{workdir}/plugins/
+%__install -D -m0644 %{SOURCE77} %{buildroot}%{workdir}/plugins/
+%__install -D -m0644 %{SOURCE78} %{buildroot}%{workdir}/plugins/
+%__install -D -m0644 %{SOURCE79} %{buildroot}%{workdir}/plugins/
+%__install -D -m0644 %{SOURCE80} %{buildroot}%{workdir}/plugins/
+
+
+%clean
+%__rm -rf "%{buildroot}"
 
 
 %files
 %defattr(-,jenkins,jenkins)
 %dir %{workdir}
 %dir %{workdir}/plugins
-%{workdir}/plugins/ace-editor.hpi
-%{workdir}/plugins/ant.hpi
-%{workdir}/plugins/antisamy-markup-formatter.hpi
-%{workdir}/plugins/apache-httpcomponents-client-4-api.hpi
-%{workdir}/plugins/authentication-tokens.hpi
-%{workdir}/plugins/bouncycastle-api.hpi
-%{workdir}/plugins/branch-api.hpi
-%{workdir}/plugins/build-timeout.hpi
-%{workdir}/plugins/clearcase.hpi
-%{workdir}/plugins/cloudbees-folder.hpi
-%{workdir}/plugins/command-launcher.hpi
-%{workdir}/plugins/credentials-binding.hpi
-%{workdir}/plugins/credentials.hpi
-%{workdir}/plugins/display-url-api.hpi
-%{workdir}/plugins/docker-commons.hpi
-%{workdir}/plugins/docker-workflow.hpi
-%{workdir}/plugins/durable-task.hpi
-%{workdir}/plugins/email-ext.hpi
-%{workdir}/plugins/external-monitor-job.hpi
-%{workdir}/plugins/git-client.hpi
-%{workdir}/plugins/git.hpi
-%{workdir}/plugins/git-server.hpi
-%{workdir}/plugins/handlebars.hpi
-%{workdir}/plugins/jackson2-api.hpi
-%{workdir}/plugins/javadoc.hpi
-%{workdir}/plugins/jdk-tool.hpi
-%{workdir}/plugins/jira.hpi
-%{workdir}/plugins/jquery.hpi
-%{workdir}/plugins/jquery-detached.hpi
-%{workdir}/plugins/jquery-ui.hpi
-%{workdir}/plugins/jsch.hpi
-%{workdir}/plugins/junit.hpi
-%{workdir}/plugins/ldap.hpi
-%{workdir}/plugins/lockable-resources.hpi
-%{workdir}/plugins/mailer.hpi
-%{workdir}/plugins/matrix-auth.hpi
-%{workdir}/plugins/matrix-project.hpi
-%{workdir}/plugins/momentjs.hpi
-%{workdir}/plugins/pam-auth.hpi
-%{workdir}/plugins/pipeline-build-step.hpi
-%{workdir}/plugins/pipeline-graph-analysis.hpi
-%{workdir}/plugins/pipeline-input-step.hpi
-%{workdir}/plugins/pipeline-milestone-step.hpi
-%{workdir}/plugins/pipeline-model-api.hpi
-%{workdir}/plugins/pipeline-model-declarative-agent.hpi
-%{workdir}/plugins/pipeline-model-definition.hpi
-%{workdir}/plugins/pipeline-model-extensions.hpi
-%{workdir}/plugins/pipeline-rest-api.hpi
-%{workdir}/plugins/pipeline-stage-step.hpi
-%{workdir}/plugins/pipeline-stage-tags-metadata.hpi
-%{workdir}/plugins/pipeline-stage-view.hpi
-%{workdir}/plugins/plain-credentials.hpi
-%{workdir}/plugins/pubsub-light.hpi
-%{workdir}/plugins/resource-disposer.hpi
-%{workdir}/plugins/role-strategy.hpi
-%{workdir}/plugins/scm-api.hpi
-%{workdir}/plugins/script-security.hpi
-%{workdir}/plugins/ssh.hpi
-%{workdir}/plugins/ssh-agent.hpi
-%{workdir}/plugins/ssh-credentials.hpi
-%{workdir}/plugins/ssh-slaves.hpi
-%{workdir}/plugins/structs.hpi
-%{workdir}/plugins/timestamper.hpi
-%{workdir}/plugins/token-macro.hpi
-%{workdir}/plugins/workflow-aggregator.hpi
-%{workdir}/plugins/workflow-api.hpi
-%{workdir}/plugins/workflow-basic-steps.hpi
-%{workdir}/plugins/workflow-cps-global-lib.hpi
-%{workdir}/plugins/workflow-cps.hpi
-%{workdir}/plugins/workflow-durable-task-step.hpi
-%{workdir}/plugins/workflow-job.hpi
-%{workdir}/plugins/workflow-multibranch.hpi
-%{workdir}/plugins/workflow-scm-step.hpi
-%{workdir}/plugins/workflow-step-api.hpi
-%{workdir}/plugins/workflow-support.hpi
-%{workdir}/plugins/ws-cleanup.hpi
+%{workdir}/plugins/**.hpi
 
 
 %changelog
+* Tue Aug 25 2020 Eric Lemings <eric@lemings.com> - 2.235.5-1
+- Update to 2.235.5
+
 * Fri Feb 01 2019 Eric Lemings <eric@lemings.com> - 2.164.2.1552705448-1
 - Update to 2.164.1.1552719454A
-- Add/remove/update plugins per NG MS Boulder requirements.
 

@@ -2,22 +2,20 @@
 # - how to add to the trusted service of the firewall?
 
 %define _prefix	%{_usr}/lib/jenkins
-%define workdir	%{_var}/lib/jenkins/.jenkins
+%define _pkgsharedstatedir	%{_var}/lib/jenkins
 
 Name:		jenkins
-Version:	2.164.1.1554405920
-Release:	3%{?dist}
+Version:	2.235.5
+Release:	1%{?dist}
 Summary:	Continous Build Server
-# This is where to get the stable jenkins.war file
-# http://mirrors.jenkins-ci.org/war-stable/
-Source:		jenkins.%{version}.war
+Source:		http://mirrors.jenkins-ci.org/war-stable/%{version}/%{name}.war
 Source1:	jenkins.init.in
 Source2:	jenkins.sysconfig.in
 Source3:	jenkins.logrotate
 Source5:	jenkins.service.in
 Source6:	jenkins.prestart.in
 Source7:	jenkins.jks
-URL:		http://jenkins-ci.org/
+URL:		http://jenkins.io/
 Group:		Development/Tools/Building
 License:	MIT/X License, GPL/CDDL, ASL2
 BuildRoot:	%{_tmppath}/build-%{name}-%{version}
@@ -52,8 +50,8 @@ following two jobs:
 %install
 rm -rf "%{buildroot}"
 %__install -D -m0644 "%{SOURCE0}" "%{buildroot}%{_prefix}/%{name}.war"
-%__install -d "%{buildroot}%{workdir}"
-%__install -d "%{buildroot}%{workdir}/plugins"
+%__install -d "%{buildroot}%{_pkgsharedstatedir}"
+%__install -d "%{buildroot}%{_pkgsharedstatedir}/plugins"
 
 %__install -d "%{buildroot}/var/log/%{name}"
 %__install -d "%{buildroot}/var/cache/%{name}"
@@ -72,8 +70,9 @@ install -d -m 0755 %{buildroot}%{_unitdir}
 %endif
 
 %__install -D -m0600 "%{SOURCE7}" "%{buildroot}/etc/pki/java/%{name}"
+
 %__install -D -m0600 "%{SOURCE2}" "%{buildroot}/etc/sysconfig/%{name}"
-%__sed -i 's,@@HOME@@,%{workdir},g' "%{buildroot}/etc/sysconfig/%{name}"
+%__sed -i 's,@@HOME@@,%{_pkgsharedstatedir},g' "%{buildroot}/etc/sysconfig/%{name}"
 
 %__install -D -m0644 "%{SOURCE3}" "%{buildroot}/etc/logrotate.d/%{name}"
 
@@ -81,7 +80,7 @@ install -d -m 0755 %{buildroot}%{_unitdir}
 /usr/sbin/groupadd -r %{name} &>/dev/null || :
 # SUSE version had -o here, but in Fedora -o isn't allowed without -u
 /usr/sbin/useradd -g %{name} -s /bin/false -r -c "Jenkins Continuous Build server" \
-	-d "%{workdir}" %{name} &>/dev/null || :
+	-d "%{_pkgsharedstatedir}" %{name} &>/dev/null || :
 
 %post
 %if 0%{?rhel} >= 7
@@ -124,6 +123,7 @@ exit 0
 if [ "$1" -ge 1 ]; then
     /sbin/service %{name} condrestart > /dev/null 2>&1
 fi
+mv %{_pkgsharedstatedir} %{_pkgsharedstatedir}.`date +%s`
 exit 0
 %endif
 
@@ -134,9 +134,9 @@ exit 0
 %defattr(-,root,root)
 %dir %{_prefix}
 %{_prefix}/%{name}.war
-%attr(0755,%{name},%{name}) %dir %{workdir}
-%attr(0750,%{name},%{name}) /var/log/%{name}
-%attr(0750,%{name},%{name}) /var/cache/%{name}
+%attr(0755,%{name},%{name}) %dir %{_pkgsharedstatedir}
+%attr(0750,%{name},%{name}) %{_var}/log/%{name}
+%attr(0750,%{name},%{name}) %{_var}/cache/%{name}
 %config /etc/logrotate.d/%{name}
 %config(noreplace) /etc/sysconfig/%{name}
 %attr(0640,%{name},%{name}) /etc/pki/java/%{name}
@@ -149,6 +149,43 @@ exit 0
 %endif
 
 %changelog
+* Tue Aug 25 2020 Eric Lemings <eric@lemings.com> - 2.235.5-1
+- Change _workdir to package-specific _sharedstatedir
+- Update to 2.235.5
+- Drop the epoch from version
+- Add/Update web URLs
+- Reference %{_var} in %files where appropriate
+
+* Fri Jun 05 2020 Justin Pierce <jupierce@redhat.com> - 2.222.1.1591353286-1
+- Update to 2.222.1.1591353286
+
+* Thu Mar 05 2020 Justin Pierce <jupierce@redhat.com> - 2.204.2.1583447235-1
+- Update to 2.204.2.1583447235
+
+* Mon Feb 17 2020 Justin Pierce <jupierce@redhat.com> - 2.204.1.1581951349-1
+- Update to 2.204.1.1581951349
+
+* Wed Feb 05 2020 Justin Pierce <jupierce@redhat.com> - 2.204.2.1580892861-1
+- Update to 2.204.2.1580892861
+
+* Wed Jan 08 2020 Justin Pierce <jupierce@redhat.com> - 2.204.1.1578489705-1
+- Update to 2.204.1.1578489705
+
+* Tue Jan 07 2020 Justin Pierce <jupierce@redhat.com> - 2.176.4.1578403418-1
+- Update to 2.176.4.1578403418
+
+* Thu Dec 19 2019 Justin Pierce <jupierce@redhat.com> - 2.176.4.1576755573-1
+- Update to 2.176.4.1576755573
+
+* Wed Nov 27 2019 Justin Pierce <jupierce@redhat.com> - 2.176.4.1574865864-1
+- Update to 2.176.4.1574865864
+
+* Wed Sep 11 2019 Justin Pierce <jupierce@redhat.com> - 2.176.3.1568230904-1
+- Update to 2.176.3.1568230904
+
+* Thu Jul 18 2019 Justin Pierce <jupierce@redhat.com> - 2.176.2.1563461785-1
+- Update to 2.176.2.1563461785
+
 * Thu Apr 04 2019 Eric Lemings <eric@lemings.com> - 2.164.1.1554405920-3
 - Replace HTTP protocol with HTTPS as default.
 

@@ -1,7 +1,7 @@
 ## Path:        Development/Jenkins
 ## Description: Configuration for the Jenkins continuous build server
 ## Type:        string
-## Default:     "/var/lib/jenkins"
+## Default:     "@@HOME@@"
 ## ServiceRestart: jenkins
 #
 # Directory where Jenkins store its configuration and working
@@ -29,16 +29,6 @@ JENKINS_JAVA_CMD=""
 JENKINS_USER="jenkins"
 
 ## Type:        string
-## Default: "false"
-## ServiceRestart: jenkins
-#
-# Whether to skip potentially long-running chown at the
-# $JENKINS_HOME location. Do not enable this, "true", unless
-# you know what you're doing. See JENKINS-23273.
-#
-#JENKINS_INSTALL_SKIP_CHOWN="false"
-
-## Type: string
 ## Default:     "-Djava.awt.headless=true"
 ## ServiceRestart: jenkins
 #
@@ -55,16 +45,6 @@ JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true"
 #
 #JENKINS_PORT="8080"
 JENKINS_PORT="-1"
-
-## Type:        integer(0:65535)
-## Default:     8009
-## ServiceRestart: jenkins
-#
-# Ajp13 Port Jenkins is listening on.
-# Set to -1 to disable
-#
-JENKINS_AJP_PORT="-1"
-#JENKINS_AJP_PORT="8009"
 
 ## Type:        string
 ## Default:     ""
@@ -102,8 +82,7 @@ JENKINS_HTTPS_KEYSTORE="/etc/pki/java/jenkins"
 # Password to access the keystore defined in JENKINS_HTTPS_KEYSTORE.
 # Default is disabled.
 #
-JENKINS_HTTPS_KEYSTORE_PASSWORD="J3nk!ns"
-#JENKINS_HTTPS_KEYSTORE_PASSWORD="changeit"
+JENKINS_HTTPS_KEYSTORE_PASSWORD="changeit"
 
 ## Type:        string
 ## Default:     ""
@@ -115,6 +94,30 @@ JENKINS_HTTPS_KEYSTORE_PASSWORD="J3nk!ns"
 #JENKINS_HTTPS_LISTEN_ADDRESS=""
 JENKINS_HTTPS_LISTEN_ADDRESS="0.0.0.0"
 
+
+## Type:        integer(0:65535)
+## Default:     ""
+## ServiceRestart: jenkins
+#
+# HTTP2 port Jenkins is listening on.
+# Default is disabled.
+#
+# Notice: HTTP2 support may require additional configuration, see Winstone
+# documentation for more information.
+#
+JENKINS_HTTP2_PORT=""
+
+## Type:        string
+## Default:     ""
+## ServiceRestart: jenkins
+#
+# IP address Jenkins listens on for HTTP2 requests.
+# Default is disabled.
+#
+# Notice: HTTP2 support may require additional configuration, see Winstone
+# documentation for more information.
+#
+JENKINS_HTTP2_LISTEN_ADDRESS=""
 
 ## Type:        integer(1:9)
 ## Default:     5
@@ -150,6 +153,16 @@ JENKINS_HANDLER_MAX=""
 #
 #JENKINS_HANDLER_IDLE="20"
 JENKINS_HANDLER_IDLE=""
+
+## Type:        string
+## Default:     ""
+## ServiceRestart: jenkins
+#
+# Folder for additional jar files to add to the Jetty class loader.
+# See Winstone documentation for more information.
+# Default is disabled.
+#
+JENKINS_EXTRA_LIB_FOLDER=""
 
 ## Type:        string
 ## Default:     ""

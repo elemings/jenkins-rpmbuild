@@ -1,6 +1,10 @@
 BUILD/**
 BUILDROOT/**
 RPMS/noarch/*.noarch.rpm
+SOURCES/jenkins.crt
+SOURCES/jenkins.jks
+SOURCES/jenkins.key
+SOURCES/jenkins.p12
 SOURCES/jenkins.war
 SOURCES/*.hpi
 SRPMS/*.src.rpm
